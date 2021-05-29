@@ -4,10 +4,7 @@ async def rate_addprof(content: str):
     return
 
 async def rate_deleteprof(content: str):
-    print("POG")
-    id = await dao.get_profid(content.split()[1])
-    await dao.delete_prof(id)
-    return
+    await dao.delete_prof(content.split()[1])
 
 async def rate_delete(content: str):
     return
