@@ -6,8 +6,7 @@ load_dotenv()
 db = pymysql.connect(host=os.environ.get("DBIP"),
                     user=os.environ.get("USER"),
                     password=os.environ.get("PASSWORD"),
-                    database='profrate'
-                    )
+                    database='profrate')
 
 async def insert_prof(fname: str, lname: str):
     with db.cursor() as cursor:
@@ -48,6 +47,13 @@ async def get_profid(lastname: str):
         sql = "SELECT profid FROM Professors where lastname = %s"
         cursor.execute(sql, (lastname))
     return int(cursor.fetchone()[0]) if cursor.rowcount != 0 else -1
+
+async def get_prof(profid: int):
+    with db.cursor() as cursor:
+        # Create a new record
+        sql = "SELECT quality,difficulty,gradereceived FROM Ratings where profid = %s"
+        cursor.execute(sql, (profid))
+    return cursor.fetchall()
         
     
     
