@@ -47,5 +47,13 @@ async def on_message(message):
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
         await util.rate(message.content, message.author.mention)
+    
+    if message.content.startswith('!rate-get '):
+        response = await validator.get_rate_val(message.content)
+        if response != ResponseCodes.OK:
+            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
+            return
+        print(await util.rate_getratings(message.content))
+        return
 
 client.run(os.environ.get("TOKEN"))

@@ -33,10 +33,15 @@ async def rate_val(content: str):
             return ResponseCodes.NUMBERS_MESSED_UP
         if int(content.split()[3]) > 10 or int(content.split()[3]) < -1:
             return ResponseCodes.NUMBERS_MESSED_UP
-        if int(content.split()[4]) > 10 or int(content.split()[4]) < -1:
+        if int(content.split()[4]) > 100 or int(content.split()[4]) < -1:
             return ResponseCodes.NUMBERS_MESSED_UP
     except:
         return ResponseCodes.ARGS_MESSED_UP
+    if await dao.get_profid(content.split()[1]) == -1:
+        return ResponseCodes.PROF_DOESNT_EXIST
+    return ResponseCodes.OK
+
+async def get_rate_val(content: str):
     if await dao.get_profid(content.split()[1]) == -1:
         return ResponseCodes.PROF_DOESNT_EXIST
     return ResponseCodes.OK
