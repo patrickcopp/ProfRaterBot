@@ -25,8 +25,18 @@ async def delete_prof(lastname: str):
 async def insert_rating():
     return
     
-async def delete_rating():
-    return
+async def delete_rating(profid: int, userid: str):
+    with db.cursor() as cursor:
+        sql = "DELETE FROM Ratings where profid = %s and raterid = %s"
+        cursor.execute(sql, (profid, userid))
+        db.commit()
+
+async def get_rating(profid: int, userid: str):
+    with db.cursor() as cursor:
+        # Create a new record
+        sql = "SELECT * FROM Ratings where profid = %s and raterid = %s"
+        cursor.execute(sql, (profid, userid))
+    return cursor.fetchone()[0] if cursor.rowcount != 0 else -1
 
 async def get_profid(lastname: str):
     with db.cursor() as cursor:

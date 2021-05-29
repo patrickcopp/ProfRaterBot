@@ -35,10 +35,11 @@ async def on_message(message):
         await util.rate_deleteprof(message.content)
     
     if message.content.startswith('!rate-delete '):
-        response = validator.remove_rating_val(message.content)
+        response = await validator.remove_rating_val(message.content)
         if response != ResponseCodes.OK:
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
+        await util.rate_delete(message.content)
 
     if message.content.startswith('!rate '):
         response = validator.rate_val(message.content)
@@ -46,10 +47,5 @@ async def on_message(message):
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
     
-    if message.content.startswith('!rate-remove '):
-        response = validator.remove_val(message.content)
-        if response != ResponseCodes.OK:
-            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
-            return
 
 client.run(os.environ.get("TOKEN"))
