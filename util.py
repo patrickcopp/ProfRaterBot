@@ -8,5 +8,5 @@ async def rate_deleteprof(content: str):
 async def rate_delete(content: str):
     await dao.delete_rating(await dao.get_profid(content.split()[2]), content.split()[1])
 
-async def rate(content: str):
-    return
+async def rate(content: str, id: int):
+    await dao.insert_rating(await dao.get_profid(content.split()[1]), id, int(content.split()[2]), int(content.split()[3]), int(content.split()[4]))

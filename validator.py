@@ -25,16 +25,18 @@ async def remove_rating_val(content: str):
         return ResponseCodes.RATING_DOESNT_EXIST
     return ResponseCodes.OK
 
-def rate_val(content: str):
+async def rate_val(content: str):
     if len(content.split()) != 5:
         return ResponseCodes.WRONG_NUMBER_ARGS
     try:
         if int(content.split()[2]) > 10 or int(content.split()[2]) < -1:
             return ResponseCodes.NUMBERS_MESSED_UP
-        if int(content.split()[3]) > 10 or int(content.split()[2]) < -1:
+        if int(content.split()[3]) > 10 or int(content.split()[3]) < -1:
             return ResponseCodes.NUMBERS_MESSED_UP
-        if int(content.split()[4]) > 10 or int(content.split()[2]) < -1:
+        if int(content.split()[4]) > 10 or int(content.split()[4]) < -1:
             return ResponseCodes.NUMBERS_MESSED_UP
     except:
         return ResponseCodes.ARGS_MESSED_UP
+    if await dao.get_profid(content.split()[1]) == -1:
+        return ResponseCodes.PROF_DOESNT_EXIST
     return ResponseCodes.OK

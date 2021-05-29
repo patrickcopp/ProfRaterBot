@@ -42,10 +42,10 @@ async def on_message(message):
         await util.rate_delete(message.content)
 
     if message.content.startswith('!rate '):
-        response = validator.rate_val(message.content)
+        response = await validator.rate_val(message.content)
         if response != ResponseCodes.OK:
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
-    
+        await util.rate(message.content, message.author.mention)
 
 client.run(os.environ.get("TOKEN"))
