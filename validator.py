@@ -1,9 +1,12 @@
 from codes import ResponseCodes
 import dao
 
-def add_prof_val(content: str):
+async def add_prof_val(content: str):
     if len(content.split()) != 3:
         return ResponseCodes.WRONG_NUMBER_ARGS
+    id = await dao.get_profid(content.split()[2])
+    if id != -1:
+        return ResponseCodes.PROF_EXISTS
     return ResponseCodes.OK
 
 def remove_prof_val(content: str):

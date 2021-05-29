@@ -21,10 +21,11 @@ async def on_message(message):
         await client.close()
 
     if message.content.startswith('!rate-addprof '):
-        response = validator.add_prof_val(message.content)
+        response = await validator.add_prof_val(message.content)
         if response != ResponseCodes.OK:
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
+        await util.rate_addprof(message.content)
         
     if message.content.startswith('!rate-deleteprof '):
         response = validator.remove_prof_val(message.content)
