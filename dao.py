@@ -2,11 +2,11 @@ import pymysql
 import discord
 import os
 from dotenv import load_dotenv
+load_dotenv()
 
-
-db = pymysql.connect(host='database-1.cercoekfd0op.us-east-1.rds.amazonaws.com',
-                    user='admin',
-                    password='PatrickAndScott',
+db = pymysql.connect(host=os.environ.get("DBIP"),
+                    user=os.environ.get("USER"),
+                    password=os.environ.get("PASSWORD"),
                     database='profrate'
                     )
 

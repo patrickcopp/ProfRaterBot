@@ -50,6 +50,4 @@ async def on_message(message):
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
 
-
-    
 client.run(os.environ.get("TOKEN"))
