@@ -2,6 +2,8 @@ import discord
 import os
 from dotenv import load_dotenv
 import dao
+import validator
+from codes import ResponseCodes
 
 load_dotenv()
 grocery_lists = {}
@@ -18,12 +20,36 @@ async def on_message(message):
     # if message.content == '!quit':
     #     await client.close()
 
-    if message.content.startswith('!rate-add '):
-        print(message.content[10:])
-        await message.channel.send('Added {0} to the list!'.format(message.content[10:]))
+    if message.content.startswith('!rate-addprof '):
+        response = validator.add_prof_val(message.content)
+        if response != ResponseCodes.OK:
+            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
+            return
     
+    if message.content.startswith('!rate-deleteprof '):
+        response = validator.remove_prof_val(message.content)
+        if response != ResponseCodes.OK:
+            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
+            return
     
+    if message.content.startswith('!rate-delete '):
+        response = validator.remove_rating_val(message.content)
+        if response != ResponseCodes.OK:
+            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
+            return
+
+    if message.content.startswith('!rate '):
+        response = validator.rate_val(message.content)
+        if response != ResponseCodes.OK:
+            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
+            return
     
+    if message.content.startswith('!rate-remove '):
+        response = validator.remove_val(message.content)
+        if response != ResponseCodes.OK:
+            print('Message: "' + message.content + '" failed. ERROR: '+str(response))
+            return
+
 
     
 client.run(os.environ.get("TOKEN"))
