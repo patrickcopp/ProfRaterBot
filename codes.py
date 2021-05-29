@@ -1,5 +1,5 @@
 class ResponseCodes:
-    OK = 0
-    WRONG_NUMBER_ARGS = 1
-    ARGS_MESSED_UP = 2
-    NUMBERS_MESSED_UP = 3
+    OK = "ok"
+    WRONG_NUMBER_ARGS = "wrong.number.args"
+    ARGS_MESSED_UP = "args.messed.up"
+    NUMBERS_MESSED_UP = "numbers.messed.up"
