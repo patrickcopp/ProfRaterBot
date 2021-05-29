@@ -1,4 +1,5 @@
 from codes import ResponseCodes
+import dao
 
 def add_prof_val(content: str):
     if len(content.split()) != 3:
@@ -6,7 +7,7 @@ def add_prof_val(content: str):
     return ResponseCodes.OK
 
 def remove_prof_val(content: str):
-    if len(content.split()) != 3:
+    if len(content.split()) != 2:
         return ResponseCodes.WRONG_NUMBER_ARGS
     return ResponseCodes.OK
 

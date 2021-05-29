@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 import validator
 from codes import ResponseCodes
+import util
 
 load_dotenv()
 grocery_lists = {}
@@ -16,20 +17,21 @@ async def on_ready():
 async def on_message(message):
     if not message.content.startswith('!'):
         return
-    # if message.content == '!quit':
-    #     await client.close()
+    if message.content == '!quit':
+        await client.close()
 
     if message.content.startswith('!rate-addprof '):
         response = validator.add_prof_val(message.content)
         if response != ResponseCodes.OK:
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
-    
+        
     if message.content.startswith('!rate-deleteprof '):
         response = validator.remove_prof_val(message.content)
         if response != ResponseCodes.OK:
             print('Message: "' + message.content + '" failed. ERROR: '+str(response))
             return
+        await util.rate_deleteprof(message.content)
     
     if message.content.startswith('!rate-delete '):
         response = validator.remove_rating_val(message.content)
